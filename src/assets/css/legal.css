@@ -1,0 +1,15 @@
+body {
+    color: #4c585b;
+    font-size: 14px;
+}
+h2.display-4--title {
+    font-size: 1.2rem;
+}
+h3.display-5--title {
+    font-size: 1rem;
+}
+ul.no-bullets {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0; 
+  }

@@ -1,0 +1,50 @@
+{
+  "frontEnd": [
+    {
+      "text": "reCaptcha",
+      "checked": false
+    },
+    {
+      "text": "Cookie Modal - close btn",
+      "checked": false
+    },
+    {
+      "text": "Cookie Modal - icon sensitivity",
+      "checked": false
+    },
+    {
+      "text": "Cookie Banner",
+      "checked": false
+    },
+    {
+      "text": "todo get rid of \"checked\"",
+      "checked": false
+    },
+    {
+      "text": "grid system",
+      "checked": false
+    },
+    {
+      "text": "w3 how to fixes",
+      "checked": false
+    }
+  ],
+  "backEnd": [
+    {
+      "text": "Cookies (from customize)",
+      "checked": false
+    },
+    {
+      "text": "Form initialization",
+      "checked": false
+    },
+    {
+      "text": "Admin - user,pass,dash",
+      "checked": false
+    },
+    {
+      "text": "This widget - server level",
+      "checked": false
+    }
+  ]
+}

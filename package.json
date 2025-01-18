@@ -1,0 +1,38 @@
+{
+  "name": "bootstrap-v5",
+  "version": "1.0.0",
+  "description": "Learning bootstrap v5 with sass",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "sass --watch scss:assets/css"
+  },
+  "keywords": [
+    "Bootstrap",
+    "bootstrap-v5",
+    "sass",
+    "learn-bootstrap",
+    "learn-sass"
+  ],
+  "author": "Lika Mekinulov",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.32.12"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@gsap/react": "^2.1.1",
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "intl-tel-input": "^25.2.1",
+    "jquery": "^3.7.1",
+    "morgan": "^1.10.0",
+    "stickyfilljs": "^2.1.0"
+  }
+}
