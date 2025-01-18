@@ -70,7 +70,7 @@ const isAuthenticated = (req, res, next) => {
 
 // Serve static files (CSS, JS, images, etc.)
 app.use(
-  express.static(path.join(__dirname, 'public'), {
+  express.static(path.join(__dirname, 'assets'), {
     maxAge: '1d', // Cache static files for 1 day
   })
 );
@@ -97,17 +97,17 @@ const writeTodoLists = (data) => {
   }
 };
 
-// Routes for public files
+// Routes for assets files
 app.get('/privacy-policy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'privacy-policy.html'));
+  res.sendFile(path.join(__dirname, 'assets', 'privacy-policy.html'));
 });
 
 app.get('/terms-of-service', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'terms-of-service.html'));
+  res.sendFile(path.join(__dirname, 'assets', 'terms-of-service.html'));
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'assets', 'index.html'));
 });
 
 // Admin page
