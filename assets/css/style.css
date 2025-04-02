@@ -11,6 +11,12 @@
     opacity: 0;
   }
 }
+
+
+.success-page .row {
+margin: 2rem auto;
+}
+
 label.form-label.fw-bold.text-center {
   display: flex;
   flex-direction: row;
@@ -406,6 +412,9 @@ a.navbar-brand:hover {
   padding-bottom: 3rem;
 }
 
+.row.headline-row-success h1.display-2--legal {
+  line-height: 1.5;
+}
 /* Form extra */
 .was-validated .form-control:invalid,
 .form-control.is-invalid {
@@ -709,7 +718,6 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #4c585b;
   background-color: var(--artboard-color, #F5F5F5);  -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -8011,7 +8019,8 @@ button.btn-form-left {
 }
 
 .border-top {
-  border-top: 1px solid #dee2e6 !important;
+  border-top: 2px solid #dee2e6 !important;
+  margin: 2rem 0;
 }
 
 .border-top-0 {
@@ -8027,8 +8036,8 @@ button.btn-form-left {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #dee2e6 !important;
-}
+  border-top: 2px solid #dee2e6 !important;
+  margin: 2rem 0;}
 
 .border-bottom-0 {
   border-bottom: 0 !important;
@@ -12868,6 +12877,12 @@ canvas {
 .blog-section .card {
   border: none;
   background: transparent;
+}
+img.img-fluid.blog-image {
+  max-height: 400px;
+  margin: auto;
+  width: 100%;
+  object-fit: cover;
 }
 
 .blog-section .ratio {
