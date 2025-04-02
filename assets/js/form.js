@@ -26,7 +26,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let valid = true;
 
     inputs.forEach(input => {
-      if (input.type === "tel") {
+      if (input.id === "lossAmount") {
+        const amount = parseFloat(input.value);
+        if (isNaN(amount) || amount < 5000) {
+          input.classList.add("is-invalid");
+          input.classList.remove("is-valid");
+          valid = false;
+          return;
+        }
+      }
+
+      if (input.type === "tel" && phoneInput) {
         if (!validatePhone()) {
           valid = false;
         }
@@ -69,17 +79,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     tabs[n].style.display = "block";
 
-    prevBtn.style.display = n === 0 ? "none" : "inline";
-    nextBtn.textContent = n === tabs.length - 1 ? "Submit" : "Next";
+    prevBtn.style.display = "inline";
+    prevBtn.disabled = n === 0;
+    prevBtn.classList.toggle("dimmed", n === 0);    nextBtn.textContent = n === tabs.length - 1 ? "Submit" : "Next";
 
     updateStepIndicator(n);
 
-    // Clear validation styles for hidden tabs
-    if (n > 0) {
-      tabs[n - 1].querySelectorAll(".is-invalid, .is-valid").forEach(input => {
-        input.classList.remove("is-invalid", "is-valid");
-      });
-    }
+    // Clear validation styles only on visible tab
+    tabs[n].querySelectorAll(".is-invalid, .is-valid").forEach(input => {
+      input.classList.remove("is-invalid", "is-valid");
+    });
   }
 
   // Handle Next and Previous button clicks
@@ -106,13 +115,17 @@ document.addEventListener("DOMContentLoaded", function () {
           return response.json();
         })
         .then(data => {
-          form.innerHTML = `<div class="alert alert-success">Your form has been submitted successfully! We understand how much this means to you, and our team is already working to provide the support you need. We'll be in touch soon.</div>`;
+          form.innerHTML = `<div class="aler-custom-success">Your form has been submitted successfully! We understand how much this means to you, and our team is already working to provide the support you need. We'll be in touch soon.</div>`;
         })
         .catch(error => {
           console.error("Submission Error:", error);
-          form.innerHTML = `<div class="alert alert-danger">
-                              <p>We couldn’t process your form due to an error. Please click 'Go Back' to try again. Don’t worry; we’re here to help every step of the way.</p>
-                              <button class="btn btn-primary" onclick="reloadForm()">Go Back</button>
+          form.innerHTML = `<div class="alert-custom-danger mx-auto">
+                              <img src="/assets/images/WhatsApp Image 2025-03-06 at 3.25.56 PM-3.png" alt="illutration" class="img-fluid d-block mx-auto">
+                              <p>We couldn’t process your form due to an error.
+                              Please click 'Go Back' to try again. <br>
+                              Don’t worry; we’re here to help every step of the way.</p>
+                              <button class="rounded-pill btn-rounded" onclick="reloadForm()">Go Back</button>
+
                             </div>`;
         });
       return;
@@ -133,13 +146,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   form.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission on Enter
-      nextBtn.click(); // Trigger the Next button instead
+      event.preventDefault();
+      if (validateCurrentTab()) {
+        nextBtn.click();
+      } else {
+        form.classList.add("was-validated");
+      }
     }
   });
 
   function reloadForm() {
     form.reset();        // Reset the form fields
+    form.querySelectorAll(".is-valid, .is-invalid").forEach(input => {
+      input.classList.remove("is-valid", "is-invalid");
+    });
     currentTab = 0;      // Reset to the first tab
     showTab(currentTab); // Display the first tab
   }
