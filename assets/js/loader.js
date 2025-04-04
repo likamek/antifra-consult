@@ -1,6 +1,6 @@
-// assets/js/loader.js
-
-// Create preloader container
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.classList.add("fade-out");
+});
 const preloader = document.createElement('div');
 preloader.id = 'preloader';
 preloader.style.position = 'fixed';
@@ -36,8 +36,28 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Remove loader on page load
+// Remove loader on page load and handle fade transitions
 window.addEventListener('load', () => {
   preloader.style.opacity = '0';
+  document.body.classList.remove('fade-out');
+  document.body.classList.add('fade-in');
   setTimeout(() => preloader.remove(), 400);
 });
+
+  // Fade out before navigating away
+  document.querySelectorAll('a[href]').forEach(link => {
+    const url = new URL(link.href, location.href);
+    const sameOrigin = url.origin === location.origin;
+
+    // Only handle same-origin links that navigate to a different path
+    if (sameOrigin && url.pathname !== location.pathname) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.body.classList.remove('fade-in');
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+          window.location = link.href;
+        }, 300); // match transition duration
+      });
+    }
+  });

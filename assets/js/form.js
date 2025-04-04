@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.getElementsByClassName("tab");
   const steps = document.getElementsByClassName("step");
   let currentTab = 0;
+  const okBtn = document.querySelector(".small-next-btn");
 
   // Initialize intl-tel-input for phone validation
   const iti = window.intlTelInput(phoneInput, {
@@ -20,10 +21,24 @@ document.addEventListener("DOMContentLoaded", function () {
     separateDialCode: true,
   });
 
+  function adjustFormHeight() {
+    const tab = document.querySelectorAll(".tab")[currentTab];
+    const form = document.getElementById("authForm");
+    if (tab && form) {
+      const tabHeight = tab.offsetHeight;
+      form.style.minHeight = `${tabHeight}px`;
+    }
+  }
+
   function validateCurrentTab() {
     const currentTabElement = tabs[currentTab];
     const inputs = currentTabElement.querySelectorAll("input, textarea, select");
     let valid = true;
+
+    // Clear old validation states before re-checking
+    tabs[currentTab].querySelectorAll(".is-invalid, .is-valid").forEach(input => {
+      input.classList.remove("is-invalid", "is-valid");
+    });
 
     inputs.forEach(input => {
       if (input.id === "lossAmount") {
@@ -75,9 +90,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // Show the current tab
   function showTab(n) {
     Array.from(tabs).forEach(tab => {
+      tab.querySelectorAll(".is-invalid, .is-valid").forEach(input => {
+        input.classList.remove("is-invalid", "is-valid");
+      });
       tab.style.display = "none";
+      form.classList.remove("was-validated");
     });
+    
     tabs[n].style.display = "block";
+
+    const formSteps = document.querySelector(".form-steps");
+    if (formSteps) {
+      formSteps.classList.remove("animate-form");
+      void formSteps.offsetWidth; // trigger reflow
+      formSteps.classList.add("animate-form");
+    }
 
     prevBtn.style.display = "inline";
     prevBtn.disabled = n === 0;
@@ -94,11 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
       progressBar.style.width = percent + "%";
       progressBar.setAttribute("aria-valuenow", percent);
     }
-
-    // Clear validation styles only on visible tab
-    tabs[n].querySelectorAll(".is-invalid, .is-valid").forEach(input => {
-      input.classList.remove("is-invalid", "is-valid");
-    });
   }
 
   // Handle Next and Previous button clicks
@@ -202,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentTab += 1;
     if (currentTab < tabs.length) {
       showTab(currentTab);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
 
@@ -211,6 +234,13 @@ document.addEventListener("DOMContentLoaded", function () {
       showTab(currentTab);
     }
   });
+
+  if (okBtn) {
+    okBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      nextBtn.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+  }
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -227,12 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function reloadForm() {
-    form.reset();        // Reset the form fields
-    form.querySelectorAll(".is-valid, .is-invalid").forEach(input => {
-      input.classList.remove("is-valid", "is-invalid");
-    });
-    currentTab = 0;      // Reset to the first tab
-    showTab(currentTab); // Display the first tab
+    window.location.href = "/start-your-claim.html";
   }
 
   // Initial tab display
